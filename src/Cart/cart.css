@@ -1,8 +1,8 @@
 .cart{
     margin: 10px;
     padding: 20px;
-    max-width: 450px;
-    min-width: 350px;
+    max-width: 480px;
+    min-width: 380px;
 }
 .cart-header{
     display: flex;
@@ -11,9 +11,28 @@
     top: 0px;
     background: #fff;
     z-index: 100;
+    margin-top: 30px;
     padding: 10px 0px;
+    font-size: 1.5rem;
+    font-weight: 700;
 }
-
+.no-item-message{
+    display: flex;
+    justify-content: center;
+}
+.no-item-message p{
+    margin-top: 50px;
+}
 .cart-items{
     margin-top: 40px;
+}
+
+@media(max-width: 450px){
+    .cart{
+        width: 100vw;
+        min-width: 250px;
+    }
+    .cart-header h3{
+        font-size: 1.3rem;
+    }
 }

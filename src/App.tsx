@@ -5,8 +5,11 @@ import Cart from './Cart/Cart';
 import { LinearProgress, Drawer } from '@material-ui/core';
 import Badge from '@material-ui/core/Badge';
 import IconButton from '@material-ui/core/IconButton';
+import { Typography, AppBar, Toolbar } from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Container } from 'react-bootstrap'
+import './App.css';
 
 export type itemType = {
   id: number,
@@ -25,6 +28,8 @@ const fetchProducts =  async (): Promise <itemType[]> =>{
 }
 
 const App = () => {
+
+
   const [ isCartOpen, setIsCartOpen ] = useState(false);
   const [ cartItems, setCartItems ] = useState([] as itemType[]);
   const { data, isLoading, isError } = useQuery<itemType[]>('products', fetchProducts);
@@ -72,19 +77,40 @@ const App = () => {
 
       {isError?<h1>Something went Wrong</h1>: null}
       {isLoading?<LinearProgress/>:(
-        <Container>
-          <IconButton aria-label="cart" onClick={()=>setIsCartOpen(true)} style={{position:'fixed', top:'10px', right:'30px', zIndex: 100}}>
-            <Badge badgeContent={getTotalCartItems(cartItems)} color="primary" overlap="circular">
-              <ShoppingCartIcon  style={{fontSize:'50px'}} color='secondary'/>
-            </Badge>
-          </IconButton>
-          <Drawer anchor={'right'} open={isCartOpen} onClose={()=>setIsCartOpen(false)}>
-             <Cart cartItems={cartItems} handleAddToCart={handleAddToCart} removeFromCart={removeFromCart} setIsCartOpen={setIsCartOpen}/>
-          </Drawer>
-          <div style={{margin:'80px 0px'}}>
-            <Products products={data as itemType[]} handleAddToCart={handleAddToCart} />
-          </div>
-        </Container>
+        <>
+          <AppBar position="fixed" elevation={0}>
+            <Toolbar >
+              <IconButton edge="start" color="inherit" aria-label="menu">
+                <MenuIcon />
+              </IconButton>
+
+              <Typography variant="h6">
+                Shopping Avenue
+              </Typography>
+
+              <IconButton aria-label="cart"  aria-describedby={'simple-popper'} onClick={()=>setIsCartOpen(true)} style={{marginLeft:'auto'}}>
+
+                <Badge badgeContent={getTotalCartItems(cartItems)} color="secondary" overlap="circular">
+                  <ShoppingCartIcon  style={{fontSize:'40px', color:'#fff'}} />
+                </Badge>
+            
+              </IconButton>
+            </Toolbar>
+          </AppBar>
+
+          <Container>
+
+            <Drawer anchor={'right'} open={isCartOpen} onClose={()=>setIsCartOpen(false)}>
+              <Cart cartItems={cartItems} handleAddToCart={handleAddToCart} removeFromCart={removeFromCart} setIsCartOpen={setIsCartOpen}/>
+            </Drawer>
+
+            <div style={{margin:'80px 0px'}}>
+              <Products products={data as itemType[]} handleAddToCart={handleAddToCart} />
+            </div>
+
+          </Container>
+
+        </>
       )}
 
     </div>

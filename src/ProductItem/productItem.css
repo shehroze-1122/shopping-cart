@@ -12,8 +12,8 @@
 
 .product-card:hover{
     box-shadow: 0 10px 10px 5px rgba(0, 0, 0, 0.3);
-    transform: translateY(-20px);
-    transition: 500ms ease-in;
+    transform: translateY(-10px);
+    transition: 500ms ease-in-out;
     cursor: pointer;
 }
 .product-card:hover .product-info h6,.product-card:hover .price{
