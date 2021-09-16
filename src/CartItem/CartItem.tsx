@@ -16,7 +16,7 @@ const CartItem: React.FC<props> = ({cartItem, handleAddToCart, removeFromCart}) 
                     <h5><span className='heading'>{cartItem.title}</span></h5>
                     <div className='cart-item-price'>
                         <p><span className='heading'>Price: </span> ${cartItem.price}</p>
-                        <p><span className='heading'>Total Price: </span> ${(cartItem.amount * cartItem.price).toFixed(2)}</p>
+                        <p style={{marginLeft:'20px'}}><span className='heading'>Total Price: </span> ${(cartItem.amount * cartItem.price).toFixed(2)}</p>
                     </div>
                     <div className='cart-item-buttons'>
                         <Button variant='contained' size='small' color='default' onClick={()=>removeFromCart(cartItem.id)}>-</Button>
@@ -25,7 +25,7 @@ const CartItem: React.FC<props> = ({cartItem, handleAddToCart, removeFromCart}) 
                     </div>
                 </div>
                 <div>
-                    <img src={cartItem.image} alt={cartItem.title} width='100px' />
+                    <img src={cartItem.image} alt={cartItem.title} width='90px' />
                 </div>
             </div>
             <hr/>

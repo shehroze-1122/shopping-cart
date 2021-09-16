@@ -2,6 +2,7 @@ import CartItem from '../CartItem/CartItem';
 import { itemType } from '../App';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { IconButton } from '@material-ui/core';
+import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import { Divider } from '@material-ui/core';
 import './cart.css'
 
@@ -13,16 +14,18 @@ type props = {
 }
 
 const Cart: React.FC<props> = ({cartItems, handleAddToCart, removeFromCart, setIsCartOpen}) => {
+
     const getTotal = ():number=>{
         return cartItems.reduce((acc, cartItem)=> acc + (cartItem.amount*cartItem.price), 0)
     }
+    
     return (
         <aside className='cart'>
             <IconButton onClick={()=>setIsCartOpen(false)} style={{position: 'absolute', top: '5px', left: '15px'}} >
                 <ArrowBackIosIcon style={{ fontSize: '20px' }}/><span style={{ fontSize: '20px' }}>Home</span>
             </IconButton>
             <div className='cart-header'>                    
-                <h3>My Cart</h3>
+                <h3>My Cart<ShoppingCart fontSize='medium' style={{marginLeft:'5px'}}/></h3>
                 <h3> Total: ${getTotal().toFixed(2)}</h3>
             </div>
             <Divider variant="middle" style={{backgroundColor:'#333'}}/>

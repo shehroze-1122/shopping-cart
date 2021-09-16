@@ -40,9 +40,8 @@ const App = () => {
     }, 0)
   )
 
-
   const handleAddToCart = (clickedItem: itemType) => {
-    const isInCart = cartItems.find((cartItem)=> cartItem.id === clickedItem.id);
+    const isInCart = cartItems.find((cartItem) => cartItem.id === clickedItem.id);
     if(isInCart){
       setCartItems(cartItems.map((cartItem)=>{
         if(cartItem.id===clickedItem.id){
@@ -74,11 +73,7 @@ const App = () => {
 
   return (
     <div className="App" >
-
-      {isError?<h1>Something went Wrong</h1>: null}
-      {isLoading?<LinearProgress/>:(
-        <>
-          <AppBar position="fixed" elevation={0}>
+        <AppBar position="fixed" elevation={0}>
             <Toolbar >
               <IconButton edge="start" color="inherit" aria-label="menu">
                 <MenuIcon />
@@ -96,21 +91,19 @@ const App = () => {
             
               </IconButton>
             </Toolbar>
-          </AppBar>
+        </AppBar>          
+      {isError?<h1>Something went Wrong</h1>: null}
+      {isLoading?<LinearProgress variant='indeterminate' color='secondary' style={{marginTop:'64px'}}/>:(
 
-          <Container>
+        <Container>
+          <Drawer anchor={'right'} open={isCartOpen} onClose={()=>setIsCartOpen(false)}>
+            <Cart cartItems={cartItems} handleAddToCart={handleAddToCart} removeFromCart={removeFromCart} setIsCartOpen={setIsCartOpen}/>
+          </Drawer>
 
-            <Drawer anchor={'right'} open={isCartOpen} onClose={()=>setIsCartOpen(false)}>
-              <Cart cartItems={cartItems} handleAddToCart={handleAddToCart} removeFromCart={removeFromCart} setIsCartOpen={setIsCartOpen}/>
-            </Drawer>
-
-            <div style={{margin:'80px 0px'}}>
-              <Products products={data as itemType[]} handleAddToCart={handleAddToCart} />
-            </div>
-
-          </Container>
-
-        </>
+          <div style={{margin:'100px 0px'}}>
+            <Products products={data as itemType[]} handleAddToCart={handleAddToCart} />
+          </div>
+        </Container>
       )}
 
     </div>
