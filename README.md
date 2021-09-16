@@ -13,7 +13,7 @@
 
 ![Home](https://github.com/shehroze-1122/shopping-cart/blob/main/ReadmeImages/home.PNG)
 
-- Upon pressing 'ADD TO CART' button on various items, they are registered on the Cart Icon in the right corner of Navbar
+- Upon pressing ***ADD TO CART*** button on various items, they are registered on the Cart Icon in the right corner of Navbar
 
 ![Adding to Cart](https://github.com/shehroze-1122/shopping-cart/blob/main/ReadmeImages/addToCart.PNG)
 
