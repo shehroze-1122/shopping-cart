@@ -75,10 +75,6 @@ const App = () => {
     <div className="App" >
         <AppBar position="fixed" elevation={0}>
             <Toolbar >
-              <IconButton edge="start" color="inherit" aria-label="menu">
-                <MenuIcon />
-              </IconButton>
-
               <Typography variant="h6">
                 Shopping Avenue
               </Typography>
