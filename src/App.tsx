@@ -6,7 +6,6 @@ import { LinearProgress, Drawer } from '@material-ui/core';
 import Badge from '@material-ui/core/Badge';
 import IconButton from '@material-ui/core/IconButton';
 import { Typography, AppBar, Toolbar } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Container } from 'react-bootstrap'
 import './App.css';
