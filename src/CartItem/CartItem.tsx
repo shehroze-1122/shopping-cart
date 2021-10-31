@@ -1,13 +1,16 @@
+import { useContext } from 'react';
 import Button from '@material-ui/core/Button';
+import { appContext } from '../contexts/appContext';
 import { itemType } from '../App';
 import './cartItem.css'
 
 type props = {
     cartItem: itemType,
-    handleAddToCart: (clickedItem: itemType)=>void,
-    removeFromCart: (id: number)=> void
+
 }
-const CartItem: React.FC<props> = ({cartItem, handleAddToCart, removeFromCart}) => {
+const CartItem: React.FC<props> = ({cartItem}) => {
+
+    const { handleAddToCart, removeFromCart } = useContext(appContext);
 
     return (
         <div>
@@ -19,9 +22,9 @@ const CartItem: React.FC<props> = ({cartItem, handleAddToCart, removeFromCart}) 
                         <p style={{marginLeft:'20px'}}><span className='heading'>Total Price: </span> ${(cartItem.amount * cartItem.price).toFixed(2)}</p>
                     </div>
                     <div className='cart-item-buttons'>
-                        <Button variant='contained' size='small' color='default' onClick={()=>removeFromCart(cartItem.id)}>-</Button>
+                        <Button variant='contained' size='small' color='default' onClick={()=>removeFromCart!(cartItem.id)}>-</Button>
                         <label>{cartItem.amount}</label>
-                        <Button variant='contained' size='small' color='default' onClick={()=>handleAddToCart(cartItem)}>+</Button>
+                        <Button variant='contained' size='small' color='default' onClick={()=>handleAddToCart!(cartItem)}>+</Button>
                     </div>
                 </div>
                 <div>

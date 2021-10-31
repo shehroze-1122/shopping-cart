@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useContext } from 'react';
+import { appContext } from './contexts/appContext';
 import { useQuery } from 'react-query';
 import Products from './Products/Products';
 import Cart from './Cart/Cart';
@@ -28,47 +29,15 @@ const fetchProducts =  async (): Promise <itemType[]> =>{
 
 const App = () => {
 
-
-  const [ isCartOpen, setIsCartOpen ] = useState(false);
-  const [ cartItems, setCartItems ] = useState([] as itemType[]);
   const { data, isLoading, isError } = useQuery<itemType[]>('products', fetchProducts);
 
   const getTotalCartItems = (cartItems: itemType[]):number =>(
     cartItems.reduce((acc,cartItem)=>{
-      return acc + cartItem.amount;
+    return acc + cartItem.amount;
     }, 0)
   )
 
-  const handleAddToCart = (clickedItem: itemType) => {
-    const isInCart = cartItems.find((cartItem) => cartItem.id === clickedItem.id);
-    if(isInCart){
-      setCartItems(cartItems.map((cartItem)=>{
-        if(cartItem.id===clickedItem.id){
-          return {...cartItem, amount: cartItem.amount + 1}
-        }
-        return {...cartItem}
-      }))
-    }else{
-      setCartItems(prev=>[...prev, {...clickedItem, amount:1}])
-    }
-  };
-
-  const removeFromCart = (id: number)=>{
-    setCartItems(
-      cartItems.reduce((acc, cartItem)=>{
-
-      if(cartItem.id === id){
-        if(cartItem.amount===1){
-          return acc;
-        }else{
-          return [...acc, { ...cartItem, amount: cartItem.amount-1}]
-        }
-      }else{
-        return [...acc, cartItem];
-      }
-    }, [] as itemType[]))
-
-  }
+  const { cartItems, setIsCartOpen, isCartOpen } = useContext(appContext);
 
   return (
     <div className="App" >
@@ -78,9 +47,9 @@ const App = () => {
                 Shopping Avenue
               </Typography>
 
-              <IconButton aria-label="cart"  aria-describedby={'simple-popper'} onClick={()=>setIsCartOpen(true)} style={{marginLeft:'auto'}}>
+              <IconButton aria-label="cart"  aria-describedby={'simple-popper'} onClick={()=>setIsCartOpen!(true)} style={{marginLeft:'auto'}}>
 
-                <Badge badgeContent={getTotalCartItems(cartItems)} color="secondary" overlap="circular">
+                <Badge badgeContent={getTotalCartItems(cartItems as itemType[])} color="secondary" overlap="circular">
                   <ShoppingCartIcon  style={{fontSize:'40px', color:'#fff'}} />
                 </Badge>
             
@@ -91,13 +60,13 @@ const App = () => {
       {isLoading?<LinearProgress variant='indeterminate' color='secondary' style={{marginTop:'64px'}}/>:(
 
         <Container>
-          <Drawer anchor={'right'} open={isCartOpen} onClose={()=>setIsCartOpen(false)}>
-            <Cart cartItems={cartItems} handleAddToCart={handleAddToCart} removeFromCart={removeFromCart} setIsCartOpen={setIsCartOpen}/>
-          </Drawer>
+            <Drawer anchor={'right'} open={isCartOpen} onClose={()=>setIsCartOpen!(false)}>
+              <Cart/>
+            </Drawer>
 
-          <div style={{margin:'100px 0px'}}>
-            <Products products={data as itemType[]} handleAddToCart={handleAddToCart} />
-          </div>
+            <div style={{margin:'100px 0px'}}>
+              <Products products={data as itemType[]} />
+            </div>
         </Container>
       )}
 

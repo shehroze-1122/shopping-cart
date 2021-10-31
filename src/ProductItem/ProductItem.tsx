@@ -1,4 +1,6 @@
 import React from 'react';
+import { useContext } from 'react';
+import { appContext } from '../contexts/appContext';
 import Rating  from '@material-ui/lab/Rating';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider'
@@ -7,10 +9,12 @@ import './productItem.css'
 
 type props = {
     product: itemType;
-    handleAddToCart: (clickedItem: itemType)=>void;
 }
 
-const ProductItem: React.FC<props> = ({product, handleAddToCart}) => {
+const ProductItem: React.FC<props> = ({ product }) => {
+
+    const { handleAddToCart } = useContext(appContext);
+
     const description: string[] = product.description.split('.');
 
     return (
@@ -32,7 +36,7 @@ const ProductItem: React.FC<props> = ({product, handleAddToCart}) => {
                         <span>({product.rating.count})</span>
                     </div>
                 </div>
-                <Button variant="contained" color='primary' style={{borderRadius:'0px 0px 8px 8px', marginBottom:'0px', color:'white', width: '100%'}} className='add-to-cart' onClick={()=>handleAddToCart(product)}>Add to Cart</Button>
+                <Button variant="contained" color='primary' style={{borderRadius:'0px 0px 8px 8px', marginBottom:'0px', color:'white', width: '100%'}} className='add-to-cart' onClick={()=>handleAddToCart!(product)}>Add to Cart</Button>
             </div>
 
         </div>
